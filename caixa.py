@@ -13,6 +13,7 @@ def abrir_caixa(caixa,saldo_inicial):
     else:
         caixa["aberto"] = True
         caixa["saldo_inicial"] = saldo_inicial
+        return True
            
     
 def fechar_caixa(caixa):
@@ -20,7 +21,7 @@ def fechar_caixa(caixa):
         return "caixa ja esta fechado"
     else:
         caixa["aberto"] = False
-        
+        return True
     
 def registrar_movimento(caixa,tipo,valor, desc = " " ):
     if caixa["aberto"] == False:
@@ -40,9 +41,12 @@ def registrar_movimento(caixa,tipo,valor, desc = " " ):
                 return "valor maior que o saldo disponivel"
             else:
                 caixa["saldo_inicial"] -= valor
+                
+
         if tipo == "venda":
             if valor > 0:
                 caixa["saldo_inicial"] += valor
+                
             else:
                 return "valor invalido"
         if tipo == "deposito":
@@ -50,12 +54,14 @@ def registrar_movimento(caixa,tipo,valor, desc = " " ):
                 return "valor invalido"
             else:
                 caixa["saldo_inicial"] += valor
+                
         caixa["movimentos"].append({
             "tipo" : tipo,
             "valor" : valor,
             "descricao" : desc
             
         })
+        return True
         
 def mostrar_caixa(caixa):
     print(f"{10*'='}CAIXA{10*'='}")
