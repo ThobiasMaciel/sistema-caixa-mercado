@@ -16,8 +16,10 @@ def pedir_valor(mensagem):
             continue
         else:
             return valor
-
-minha_caixa = caixa.criar_caixa()
+try:
+    minha_caixa = caixa.carregar_caixa("caixa.json")
+except FileNotFoundError:
+    minha_caixa = caixa.criar_caixa()
 while True:
     menu()
     opcao = input('escolha uma opcao: ')
@@ -62,11 +64,14 @@ while True:
     elif opcao == '3':
         caixa.mostrar_caixa(minha_caixa)
     elif opcao == '4':
+       
         resultado = caixa.fechar_caixa(minha_caixa)
+           
         if resultado != True:
             print(resultado)
-
+        
     elif opcao == '5':
+        caixa.salvar_caixa(minha_caixa, "caixa.json")
         break
     else:
         print('opcao invalida')
